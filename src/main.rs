@@ -14,6 +14,7 @@ enum Commands {
     Run { cmd: String },
     Images,
     Ps,
+    
 }
 
 fn main() {
