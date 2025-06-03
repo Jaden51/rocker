@@ -17,5 +17,7 @@ Run the `run` command to spawn a new process. This also sets up the Linux namesp
 ./target/debug/rocker run /bin/sh
 ```
 
+BusyBox was used to provide UNIX utilities to the containers.  
+
 ### Motivation
 Rocker is being built to learn how Docker and containerization in Linux works under the hood. Rust is being used to help with running Linux system calls and to learn a new language in systems programming.
