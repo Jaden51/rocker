@@ -5,6 +5,8 @@ use nix::unistd::{ForkResult, chroot, execvp, fork, sethostname, write};
 use std::ffi::CString;
 use std::fs::create_dir_all;
 
+use crate::commands::create_cgroup;
+
 pub fn run(cmd_args: &Vec<String>) {
     println!("command: {:?}", cmd_args);
 
@@ -14,6 +16,8 @@ pub fn run(cmd_args: &Vec<String>) {
     match unsafe { fork() } {
         Ok(ForkResult::Parent { child, .. }) => {
             println!("Parent: created container process with PID: {}", child);
+
+            create_cgroup(child.as_raw() as u32);
 
             waitpid(child, None).expect("Failed to wait for child");
         }
