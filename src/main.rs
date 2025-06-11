@@ -1,10 +1,11 @@
 mod commands;
+mod containers;
 
 use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(name = "rocker")]
-#[command(about = "Docker in Rust", long_about = None)]
+#[command(about = "Containerization in Rust", long_about = None)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,

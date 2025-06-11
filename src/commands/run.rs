@@ -4,7 +4,9 @@ use nix::sys::wait::waitpid;
 use nix::unistd::{ForkResult, chroot, execvp, fork, sethostname, write};
 use std::ffi::CString;
 use std::fs::create_dir_all;
+use uuid::Uuid;
 
+use crate::containers::state::{ContainerInfo, ContainerState};
 use crate::commands::create_cgroup;
 
 pub fn run(cmd_args: &Vec<String>) {
@@ -18,6 +20,8 @@ pub fn run(cmd_args: &Vec<String>) {
             println!("Parent: created container process with PID: {}", child);
 
             create_cgroup(child.as_raw() as u32);
+
+            save_metadata(child.as_raw() as u32, &cmd_args);
 
             waitpid(child, None).expect("Failed to wait for child");
         }
@@ -68,4 +72,9 @@ pub fn run(cmd_args: &Vec<String>) {
         }
         Err(_) => println!("Fork failed"),
     }
+}
+
+pub fn save_metadata(child_pid: u32, command: &Vec<String>) {
+    let container_id = Uuid::new_v4().to_string();
+    println!("{container_id}");
 }
