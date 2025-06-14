@@ -3,6 +3,7 @@ use std::fs::{create_dir_all, write};
 pub mod list;
 pub mod ps;
 pub mod run;
+pub mod stop;
 
 const MEMORY_LIMIT: &str = "10000000"; // 10 MB
 

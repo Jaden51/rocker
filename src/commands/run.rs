@@ -3,11 +3,11 @@ use nix::sched::{CloneFlags, unshare};
 use nix::sys::wait::waitpid;
 use nix::unistd::{ForkResult, chroot, execvp, fork, sethostname, write};
 use std::ffi::CString;
-use std::fs::create_dir_all;
+use std::fs::{create_dir_all};
 use uuid::Uuid;
 
-use crate::containers::state::{ContainerInfo, ContainerState};
 use crate::commands::create_cgroup;
+use crate::containers::state::{ContainerInfo, ContainerState};
 
 pub fn run(cmd_args: &Vec<String>) {
     println!("command: {:?}", cmd_args);
@@ -76,5 +76,13 @@ pub fn run(cmd_args: &Vec<String>) {
 
 pub fn save_metadata(child_pid: u32, command: &Vec<String>) {
     let container_id = Uuid::new_v4().to_string();
-    println!("{container_id}");
+    let info = ContainerInfo {
+        id: container_id.clone(),
+        pid: child_pid,
+        command: command.clone(),
+        state: ContainerState::Running,
+    };
+    std::fs::create_dir_all("./containers").unwrap();
+    let meta_path = format!("./containers/{}.json", container_id);
+    std::fs::write(meta_path, serde_json::to_string(&info).unwrap()).unwrap();
 }

@@ -16,6 +16,7 @@ enum Commands {
     Run { cmd_args: Vec<String> },
     Images,
     Ps,
+    Stop { container_id: String },
 }
 
 fn main() {
@@ -30,6 +31,9 @@ fn main() {
         }
         Commands::Ps => {
             commands::ps::ps();
+        }
+        Commands::Stop {container_id} => {
+            commands::stop::stop(container_id);
         }
     }
 }
