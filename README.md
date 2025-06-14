@@ -1,23 +1,35 @@
 # Rocker
-Rocker is a CLI tool built in Rust used for containerization. 
+Rocker is a command-line tool written in Rust that provides containerization by isolating processes using Linux namespaces and cgroups. 
 
-### Prerequisites
+## Prerequisites
 
-Rocker can only be run on a Linux machine. If you don't have a Linux machine, a virtual machine will work.  
+Rocker requires a Linux environment to run, as it relies on Linux-specific features like namespaces and cgroups. If you are not using a Linux machine, you can use a Linux virtual machine to run the program. 
 
-### Starting the CLI
-Build the project from the root
-```
-cargo build
-```
+## Commands
 
-Run the `run` command to spawn a new process. This also sets up the Linux namespaces and isolates the filesystem using `chroot`. An example command is shown below. 
+### run
 
 ```
-./target/debug/rocker run /bin/sh
+rocker run <command>
 ```
 
-BusyBox was used to provide UNIX utilities to the containers.  
+Runs a new isolated container process with the specified command. 
 
-### Motivation
+### stop
+
+```
+rocker stop <container_id>
+```
+
+Stops the specified container process with the given id.
+
+### ps
+
+```
+rocker ps
+```
+
+List currently running containers.
+
+## Motivation
 Rocker is being built to learn how Docker and containerization in Linux works under the hood. Rust is being used to help with running Linux system calls and to learn a new language in systems programming.
