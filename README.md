@@ -32,4 +32,4 @@ rocker ps
 List currently running containers.
 
 ## Motivation
-Rocker is being built to learn how Docker and containerization in Linux works under the hood. Rust is being used to help with running Linux system calls and to learn a new language in systems programming.
+Rocker is a learning project designed to explore how Docker and Linux containerization work at a low level. It uses Rust to interact with Linux system calls, providing hands-on experience with both container internals and systems programming in Rust.
