@@ -1,3 +1,3 @@
 pub fn ps() {
-    println!("Showing containers");
+    println!("Showing containers!");
 }
